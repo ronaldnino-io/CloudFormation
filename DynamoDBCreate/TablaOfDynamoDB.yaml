@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+    TableNameOfDynamoDB:
+        Type: String
+    AttributeNameOfTable:
+        Type: String    
+
+Resources: 
+    MyFirstTableDynamoBD:
+        Type: AWS::DynamoDB::Table
+        Properties: 
+            AttributeDefinitions: 
+                - AttributeName: !Ref AttributeNameOfTable
+                  AttributeType: S
+            KeySchema:
+                - AttributeName: !Ref AttributeNameOfTable
+                  KeyType: HASH
+            BillingMode: PAY_PER_REQUEST
+            SSESpecification: 
+                SSEEnabled: true
+            TableName: !Ref TableNameOfDynamoDB            
+Outputs:
+    TableNameOfDynamoDB:
+        Value: !Ref MyFirstTableDynamoBD
+        Export:
+            Name: !Ref TableNameOfDynamoDB
